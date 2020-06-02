@@ -61,6 +61,15 @@ def getSitesReserved(mdhpData):
 def getSitesPendingOrderOrReserved(mdhpData):
     return {**getSitesPendingOrder(mdhpData.copy()),**getSitesReserved(mdhpData)}
 
+def generateOverlayImg():
+    bottom_img = Image.open('milliondollarhomepage.png')
+    top_img = Image.open('heatmap.png')
+
+    bottom_img = bottom_img.convert('RGBA')
+    top_img = top_img.convert('RGBA')
+
+    new_img = Image.blend(bottom_img, top_img, .75)
+    new_img.save('overlay.png', 'PNG')
 
 x = mdd.millionDollarData
 
@@ -74,4 +83,6 @@ x = mdd.millionDollarData
 #TODO
 # print(pprint.pformat(getStatusCodeSummaryCounter(x)))
 
-print(pprint.pformat(getSitesPendingOrderOrReserved(x)))
+#print(pprint.pformat(getSitesPendingOrderOrReserved(x)))
+
+generateOverlayImg()
